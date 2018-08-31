@@ -234,20 +234,6 @@ public class AddressBook {
         showToUser(result, DIVIDER);
     }
 
-    /*
-     * NOTE : =============================================================
-     * Parameter description can be omitted from the method header comment
-     * if the parameter name is self-explanatory.
-     * In the method below, '@param userInput' comment has been omitted.
-     * ====================================================================
-     */
-
-    /**
-     * Echoes the user input back to the user.
-     */
-    private static void echoUserCommand(String userCommand) {
-        showToUser("[Command entered:" + userCommand + "]");
-    }
 
     /**
      * Processes the program main method run arguments.
@@ -269,6 +255,20 @@ public class AddressBook {
         if(args.length == 0) {
             setupDefaultFileForStorage();
         }
+    }
+    /*
+     * NOTE : =============================================================
+     * Parameter description can be omitted from the method header comment
+     * if the parameter name is self-explanatory.
+     * In the method below, '@param userInput' comment has been omitted.
+     * ====================================================================
+     */
+
+    /**
+     * Echoes the user input back to the user.
+     */
+    private static void echoUserCommand(String userCommand) {
+        showToUser("[Command entered:" + userCommand + "]");
     }
 
     /**
@@ -366,13 +366,14 @@ public class AddressBook {
      */
     private static String executeCommand(String userInputString) {
         final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
-        final String commandType = commandTypeAndParams[0];
+        final String commandType = commandTypeAndParams[0].toLowerCase();
         final String commandArgs = commandTypeAndParams[1];
+
         switch (commandType) {
         case COMMAND_ADD_WORD:
             return executeAddPerson(commandArgs);
         case COMMAND_FIND_WORD:
-            return executeFindPersons(commandArgs);
+            return executeFindPersons(commandArgs.toLowerCase());
         case COMMAND_LIST_WORD:
             return executeListAllPersonsInAddressBook();
         case COMMAND_DELETE_WORD:
@@ -870,7 +871,7 @@ public class AddressBook {
      */
     private static String[] makePersonFromData(String name, String phone, String email) {
         final String[] person = new String[PERSON_DATA_COUNT];
-        person[PERSON_DATA_INDEX_NAME] = name;
+        person[PERSON_DATA_INDEX_NAME] = name.toLowerCase();
         person[PERSON_DATA_INDEX_PHONE] = phone;
         person[PERSON_DATA_INDEX_EMAIL] = email;
         return person;
